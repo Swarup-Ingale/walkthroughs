@@ -1,30 +1,9 @@
-# 🛡️ CTF Lab Walkthroughs
+# This Repo Consist of All the Solutions in MY OWN WORDS according to my understanding from the challenges labs available on olicyber
 
-This repository contains **walkthroughs and explanations of Capture The Flag (CTF) labs** from various cybersecurity learning platforms.  
-The goal of this repo is **learning, not spoilers** — every walkthrough is written in my **own words**, focusing on *why* something works, not just *what* works.
+# DISCLAIMER
+- Everything you see here is expressed in my own words according to my own understanding
+- So try to learn the concepts from the solutions I provide here
+- Dont copy paste the commands and flags as it is !!
+- Thank You
 
----
-
-## 🎯 Purpose of This Repository
-
-- Document my **hands-on learning journey** in cybersecurity
-- Strengthen understanding of **real-world attack techniques**
-- Help beginners understand **methodology over memorization**
-- Serve as a **personal knowledge base** and revision resource
-
----
-
-## 🧠 What You’ll Find Here
-
-- Step-by-step **CTF lab walkthroughs**
-- Clear explanation of:
-  - Reconnaissance techniques
-  - Enumeration strategies
-  - Exploitation logic
-  - Privilege escalation concepts
-- Commands, scripts, and payloads **used and explained**
-- Notes on **mistakes, alternatives, and lessons learned**
-
----
-
-Happy hacking & learning 👨‍💻✨
+Happy Learning and Hacking 🤗
