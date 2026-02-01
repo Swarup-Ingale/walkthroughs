@@ -14,6 +14,7 @@ A present with dimensions 1x1x10 requires 1+1+1+1 = 4 feet of ribbon to wrap the
 How many total feet of ribbon should they order?
 
 # Concept
+This challenge focuses on sorting values, calculating perimeters and volumes, and aggregating results using file-based input processing.
 
 # Method of Solve
 The below code is used to solve the Part 02 of the challenge:
