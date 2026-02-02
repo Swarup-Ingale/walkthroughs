@@ -54,4 +54,5 @@ This Challenge can be solved using the code given below:
     
     print(sum(sum(row) for row in grid))
   ```
-This Solves the day 06 of Advent of Code
+
+# This Solves the day 06 of Advent of Code
