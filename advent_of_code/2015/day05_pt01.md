@@ -52,4 +52,5 @@ The below code is the solution for solving part 01 of this Challenge:
     
     print(count)
 ```
-This Solves the part 01 of the challenge
+
+# This Solves the part 01 of the challenge
