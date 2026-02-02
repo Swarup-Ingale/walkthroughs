@@ -53,4 +53,5 @@ The below code is solution for solving the challenge:
     # Count lights that are ON
     print(sum(sum(row) for row in grid))
   ```
-This solves the part 01 of the challenge
+
+# This solves the part 01 of the challenge
