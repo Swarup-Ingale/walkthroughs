@@ -1,4 +1,4 @@
-# HackMyVM Writeups 🧠🔐
+# HackMyVM Writeups 
 
 This repository contains my personal **writeups and walkthroughs** for challenges solved on the **HackMyVM** platform.
 
