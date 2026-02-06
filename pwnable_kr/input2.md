@@ -192,22 +192,22 @@ de ad be ef
   io.interactive()
 ```
 - we have to create the exploit.py in /tmp folder and also run it from the /tmp folder as the home directory is not giving permissions
-  ```
-    input2@ubuntu:/tmp$ python /tmp/input2.py
-    sys:1: BytesWarning: Text is not bytes; assuming ISO-8859-1, no guarantees. See https://docs.pwntools.com/#bytes
-    [+] Starting local process '/home/input2/input2': pid 1283112
-    [+] Opening connection to localhost on port 4444: Done
-    [*] Switching to interactive mode
-    Welcome to pwnable.kr
-    Let's see if you know how to give input to program
-    Just give me correct inputs then you will get the flag :)
-    Stage 1 clear!
-    Stage 2 clear!
-    Stage 3 clear!
-    Stage 4 clear!
-    Stage 5 clear!
-    Mommy_now_I_know_how_to_pa5s_inputs_in_Linux
-    [*] Process '/home/input2/input2' stopped with exit code 0 (pid 1283112)
-    [*] Got EOF while reading in interactive
-  ```
+```
+  input2@ubuntu:/tmp$ python /tmp/input2.py
+  sys:1: BytesWarning: Text is not bytes; assuming ISO-8859-1, no guarantees. See https://docs.pwntools.com/#bytes
+  [+] Starting local process '/home/input2/input2': pid 1283112
+  [+] Opening connection to localhost on port 4444: Done
+  [*] Switching to interactive mode
+  Welcome to pwnable.kr
+  Let's see if you know how to give input to program
+  Just give me correct inputs then you will get the flag :)
+  Stage 1 clear!
+  Stage 2 clear!
+  Stage 3 clear!
+  Stage 4 clear!
+  Stage 5 clear!
+  Mommy_now_I_know_how_to_pa5s_inputs_in_Linux
+  [*] Process '/home/input2/input2' stopped with exit code 0 (pid 1283112)
+  [*] Got EOF while reading in interactive
+```
 - So the Flag is **Mommy_now_I_know_how_to_pa5s_inputs_in_Linux**
