@@ -128,6 +128,9 @@ ssh leg@pwnable.kr -p2222 (pw:guest)
   (gdb)
 ```
 
+# Concept
+The Challenge Helps us understand the arm debugging and understanding the code to bruteforce the output
+
 # Method of Solve
 - First Login using the ssh credentials and read the source code ... it is a simple arm challenge
 - Then to find the values of the key1()+key2()+key3() we have to first understand whats happening in the execution
