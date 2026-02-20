@@ -21,3 +21,33 @@ R5, L5, R5, R3 leaves you 12 blocks away.
 How many blocks away is Easter Bunny HQ?
 
 # Method of Solve
+- This challenge can be solved using the following code:
+  ```
+    def distance_to_hq_from_file(filename):
+        # Directions: North, East, South, West
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        facing = 0  # start facing North
+        x, y = 0, 0
+    
+        with open(filename, "r") as f:
+            instructions = f.read().strip()
+    
+        for step in instructions.split(", "):
+            turn = step[0]
+            blocks = int(step[1:])
+    
+            if turn == "R":
+                facing = (facing + 1) % 4
+            else:  # "L"
+                facing = (facing - 1) % 4
+    
+            dx, dy = directions[facing]
+            x += dx * blocks
+            y += dy * blocks
+    
+        return abs(x) + abs(y)
+    
+    print("Blocks away:", distance_to_hq_from_file("input_01"))
+  ```
+- This Solves the part 01 of the challenge.
+
