@@ -646,12 +646,12 @@ To understand how croc could be abused, I inspected the binary.
   - Likely fully functional
 
 ### Help Menu
-```bash
-  /usr/local/bin/croc --help
-```
+  ```bash
+    /usr/local/bin/croc --help
+  ```
 - The help output revealed:
   - croc send — send files
-  - croc <code> — receive files
+  - croc **<code>** — receive files
   - Supports custom output directory (--out)
   - Supports overwrite
   - Supports stdout redirection
