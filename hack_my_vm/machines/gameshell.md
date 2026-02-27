@@ -651,7 +651,7 @@ To understand how croc could be abused, I inspected the binary.
   ```
 - The help output revealed:
   - croc send — send files
-  - croc **<code>** — receive files
+  - croc — receive files
   - Supports custom output directory (--out)
   - Supports overwrite
   - Supports stdout redirection
