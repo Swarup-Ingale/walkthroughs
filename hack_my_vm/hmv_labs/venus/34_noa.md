@@ -1,5 +1,5 @@
 # Target User
-maia  -pass: nh1hnDPHpydEjoEN
+maia  -pass: h1hnDPHpydEjoEN
 
 # Method of Solve
 - Login using the ssh credentials
@@ -26,7 +26,7 @@ maia  -pass: nh1hnDPHpydEjoEN
     noa@venus:~$ strings -14 trash 
     \nh1hnDPHpydEjoEN
   ```
-- We ge the password which is **nh1hnDPHpydEjoEN**
+- We ge the password which is **h1hnDPHpydEjoEN**
 
 # Commands Used
 - ls -la
