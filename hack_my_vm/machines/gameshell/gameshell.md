@@ -1,5 +1,5 @@
 # 🎮 Gameshell — HackMyVM Writeup
-## Introduction
+## Introduction 
 
 This writeup documents the complete exploitation process of the Gameshell machine from HackMyVM.
 
