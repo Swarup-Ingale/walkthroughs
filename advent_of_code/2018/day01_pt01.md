@@ -29,8 +29,9 @@ Here are other example situations:
 ```
 Starting with a frequency of zero, what is the resulting frequency after all of the changes in frequency have been applied?
 
-# Solution 
+# Method of Solve 
 - The Part 01 of this challenge can be solved using the following code:
+- For Python: 
 ```
 frequency = 0
 
@@ -39,6 +40,22 @@ with open("input_01", "r") as file:
         frequency += int(line.strip())
 
 print("Final Frequency:", frequency)
+```
+
+- For Javascript:
+```
+const fs = require('fs');
+
+const input = fs.readFileSync('input_01', 'utf8');
+
+const changes = input
+    .trim()
+    .split('\n')
+    .map(Number);
+
+const frequency = changes.reduce((sum, num) => sum + num, 0);
+
+console.log('Final Frequency:', frequency);
 ```
 
 - This Solves The Part 01 of this challenge.
