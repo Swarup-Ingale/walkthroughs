@@ -64,10 +64,3 @@ You will see the ACSAC CTF banner printed, followed by the flag.
 ### 5. Submit the Flag
 
 Copy the flag from the output and submit it to the CTF platform.
-
-## Key Takeaways
-
-- All challenge files are located in `/challenge/`.
-- Challenge binaries are designed to be run with `/challenge/run`.
-- The `/flag` file is not directly readable — you must use the provided binary.
-- `sudo` is available in practice mode for debugging with root privileges.
