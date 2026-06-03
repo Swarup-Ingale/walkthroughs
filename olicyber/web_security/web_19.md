@@ -115,6 +115,4 @@ for offset in range(5):
 flag = extract_string("SELECT asecret FROM secret LIMIT 1 OFFSET 0", 300)
 print(f"\n[+] Flag: {flag}")
 ```
-
-# Flag
-**flag{A_bl1ndy_fl4g}**
+- so the flag is **flag{A_bl1ndy_fl4g}**
