@@ -1,3 +1,9 @@
+# URL
+https://pwnable.kr/play.php
+
+# SSH Credentials
+ssh memcpy@pwnable.kr -p2222 (pw:guest)
+
 **Challenge:** memcpy  
 **Category:** Binary Exploitation / Memory Alignment  
 **Goal:** Provide the correct malloc sizes so the SSE-based `fast_memcpy` does not crash on misaligned memory, allowing all 10 experiments to complete and reveal the flag.
