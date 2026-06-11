@@ -3,13 +3,13 @@ https://training.olicyber.it/challenges#challenge-261
 
 ---
 
-## Concept
+# Concept
 
 The flag is never stored as a data string in the binary. Instead, it is constructed **at runtime** by storing individual bytes onto the stack via `mov` instructions. A decompiler may optimize this away or fail to show it clearly, so examining the raw disassembly is essential.
 
 ---
 
-## Method of Solution
+# Method of Solution
 
 ### 1. Analyze with Ghidra
 
@@ -78,7 +78,7 @@ print(flag)  # flag{fc2f449b}
 
 ---
 
-## Flag
+# Flag
 
 ```
 flag{fc2f449b}
