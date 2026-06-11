@@ -3,7 +3,7 @@ https://training.olicyber.it/challenges#challenge-260
 
 ---
 
-## Concept
+# Concept
 
 The flag is not stored as plaintext in the binary. Instead, it is stored as an **XOR-encrypted** value. The program:
 
@@ -24,7 +24,7 @@ Since XOR is symmetric (A XOR B = C implies A = C XOR B), we can recover the cor
 
 ---
 
-## Method of Solution
+# Method of Solution
 
 ### 1. Analyze the Binary with Ghidra
 
@@ -73,7 +73,7 @@ print(input_bytes.decode())  # flag{d21fe035}
 
 ---
 
-## Flag
+# Flag
 
 ```
 flag{d21fe035}
