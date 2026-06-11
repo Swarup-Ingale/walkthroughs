@@ -16,6 +16,6 @@ openat(AT_FDCWD, "flag{01b81d48}", O_RDONLY) = -1 ENOENT
 
 The flag is embedded in the filename string passed to `openat()`.
 
-## Flag
+# Flag
 `flag{01b81d48}`
 - So the final flag is **flag{01b81d48}**
