@@ -43,9 +43,9 @@ The chosen language for each problem depends on:
 
 | Year | Status |
 |-----|--------|
-| 2015 | ⏳ In Progress |
-| 2016 | ⏳ In Progress |
-| 2017 | ⏳ In Progress |
+| 2015 | ✅ Done |
+| 2016 | ✅ Done |
+| 2017 | ✅ Done |
 | 2018 | ⏳ In Progress |
 | 2019 | ⏳ In Progress |
 | 2020 | ⏳ In Progress |
