@@ -127,7 +127,7 @@ name_to_addr = {
 
 This makes the script reusable across different binaries.
 
-## Flag
+# Flag
 
 ```
 flag{e353daccc34b6fbd}
