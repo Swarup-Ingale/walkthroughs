@@ -160,3 +160,158 @@ What will the total resource value of the lumber collection area be after 10 min
 - The Part 01 of this challenge can be solved using the following code:
 - The Python version is as follows:
 ```
+grid = [
+    list(line.strip())
+    for line in open("input_18")
+]
+
+H = len(grid)
+W = len(grid[0])
+
+dirs = [
+    (-1,-1),(0,-1),(1,-1),
+    (-1,0),        (1,0),
+    (-1,1),(0,1),(1,1)
+]
+
+for _ in range(10):
+
+    nxt = [row[:] for row in grid]
+
+    for y in range(H):
+        for x in range(W):
+
+            trees = 0
+            lumber = 0
+
+            for dx, dy in dirs:
+
+                nx = x + dx
+                ny = y + dy
+
+                if not (
+                    0 <= nx < W and
+                    0 <= ny < H
+                ):
+                    continue
+
+                if grid[ny][nx] == "|":
+                    trees += 1
+
+                elif grid[ny][nx] == "#":
+                    lumber += 1
+
+            if grid[y][x] == ".":
+                if trees >= 3:
+                    nxt[y][x] = "|"
+
+            elif grid[y][x] == "|":
+                if lumber >= 3:
+                    nxt[y][x] = "#"
+
+            else:
+                if not (
+                    lumber >= 1 and
+                    trees >= 1
+                ):
+                    nxt[y][x] = "."
+
+    grid = nxt
+
+trees = sum(
+    row.count("|")
+    for row in grid
+)
+
+lumber = sum(
+    row.count("#")
+    for row in grid
+)
+
+print(trees * lumber)
+```
+- The Javascript version is as follows:
+```
+const fs = require('fs');
+
+let grid = fs.readFileSync('input_18', 'utf8')
+    .trim()
+    .split('\n')
+    .map(r => r.split(''));
+
+const H = grid.length;
+const W = grid[0].length;
+
+const dirs = [
+    [-1,-1], [0,-1], [1,-1],
+    [-1, 0],         [1, 0],
+    [-1, 1], [0, 1], [1, 1]
+];
+
+for (let minute = 0; minute < 10; minute++) {
+
+    const next = grid.map(r => [...r]);
+
+    for (let y = 0; y < H; y++) {
+        for (let x = 0; x < W; x++) {
+
+            let trees = 0;
+            let lumber = 0;
+
+            for (const [dx, dy] of dirs) {
+
+                const nx = x + dx;
+                const ny = y + dy;
+
+                if (
+                    nx < 0 || ny < 0 ||
+                    nx >= W || ny >= H
+                ) continue;
+
+                if (grid[ny][nx] === '|')
+                    trees++;
+
+                if (grid[ny][nx] === '#')
+                    lumber++;
+            }
+
+            if (
+                grid[y][x] === '.' &&
+                trees >= 3
+            )
+                next[y][x] = '|';
+
+            else if (
+                grid[y][x] === '|' &&
+                lumber >= 3
+            )
+                next[y][x] = '#';
+
+            else if (
+                grid[y][x] === '#'
+            ) {
+                if (
+                    !(lumber >= 1 &&
+                      trees >= 1)
+                )
+                    next[y][x] = '.';
+            }
+        }
+    }
+
+    grid = next;
+}
+
+let trees = 0;
+let lumber = 0;
+
+for (const row of grid) {
+    for (const c of row) {
+        if (c === '|') trees++;
+        if (c === '#') lumber++;
+    }
+}
+
+console.log(trees * lumber);
+```
+- This Solves the Part 01 of this challenge.
