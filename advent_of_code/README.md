@@ -30,6 +30,7 @@ Solutions may be implemented in one or more of the following languages:
 - 🐍 Python (primary)
 - 💻 C / C++
 - ☕ Java (if required)
+- 😀 Javascript
 - 🧪 Other languages for experimentation
 
 The chosen language for each problem depends on:
@@ -46,7 +47,7 @@ The chosen language for each problem depends on:
 | 2015 | ✅ Done |
 | 2016 | ✅ Done |
 | 2017 | ✅ Done |
-| 2018 | ⏳ In Progress |
+| 2018 | ✅ Done |
 | 2019 | ⏳ In Progress |
 | 2020 | ⏳ In Progress |
 | 2021 | ⏳ In Progress |
