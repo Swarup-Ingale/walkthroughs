@@ -26,4 +26,33 @@ What is the sum of the fuel requirements for all of the modules on your spacecra
 # Method of Solve
 - The Part 01 of this challenge can be solved using the following code:
 - The Python version is as follows:
-- Ill solve it tomorrow... :)
+```
+with open("input01") as f:
+	masses = [int(line.strip()) for line in f]
+
+total = 0
+
+for mass in masses:
+	total += (mass // 3) - 2
+
+print(total)
+```
+- The Javascript version is as follows:
+```
+const fs = require("fs");
+
+const masses = fs
+    .readFileSync("input01", "utf8")
+    .trim()
+    .split("\n")
+    .map(Number);
+
+let total = 0;
+
+for ( const mass of masses ) {
+	total += Math.floor(mass / 3) - 2;
+}
+
+console.log(total);
+```
+- This Solves The Part 01 of this challenge.
