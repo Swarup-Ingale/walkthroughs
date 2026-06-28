@@ -55,4 +55,74 @@ Once you have a working computer, the first step is to restore the gravity assis
 # Method of Solve
 - The Part 01 of this challenge can be solved using the following code:
 - The Python version is as follows:
-- Ill solve it tomorrow :)
+```
+with open("input02") as f:
+    memory = list(map(int, f.read().strip().split(",")))
+
+memory[1] = 12
+memory[2] = 2
+
+ip = 0
+
+while True:
+    opcode = memory[ip]
+
+    if opcode == 99:
+        break
+
+    a = memory[ip + 1]
+    b = memory[ip + 2]
+    c = memory[ip + 3]
+
+    if opcode == 1:
+        memory[c] = memory[a] + memory[b]
+    elif opcode == 2:
+        memory[c] = memory[a] * memory[b]
+    else:
+        raise ValueError(f"Unknown opcode {opcode}")
+
+    ip += 4
+
+print(memory[0])
+```
+- The Javascript version is as follows:
+```
+const fs = require("fs")
+
+const memory = fs
+	.readFileSync("input02", "utf-8")
+	.trim()
+	.split(",")
+	.map(Number);
+
+memory[1] = 12;
+memory[2] = 2;
+
+let ip = 0
+
+while (true) {
+	const opcode = memory[ip];
+	if (opcode === 99) break;
+
+	const a = memory[ip + 1];
+	const b = memory[ip + 2];
+	const c = memory[ip + 3];
+
+	if (opcode === 1) {
+		memory[c] = memory[a] + memory[b];
+	}
+
+	else if (opcode === 2) {
+		memory[c] = memory[a] * memory[b];
+	}
+
+	else {
+		throw new Error(`Unknown Error {opcode}`);
+	}
+	
+	ip += 4;
+}
+
+console.log(memory[0]);
+```
+- This Solves The Part 01 of this challenge.
