@@ -23,4 +23,93 @@ Find the input noun and verb that cause the program to produce the output 196907
 # Method Of Solve
 - The Part 02 of this challenge can be solved using the following code:
 - The Python version is as follows:
-- Ill solve this tomorrow :) 
+```
+with open("input02", "r") as f:
+	original = list(map(int, f.read().strip().split(",")))
+
+def run(noun, verb):
+	memory = original[:]
+	memory[1] = noun
+	memory[2] = verb
+
+	ip = 0
+
+	while True:
+		opcode = memory[ip]
+		if opcode == 99:
+			break
+		a = memory[ip + 1]
+		b = memory[ip + 2]
+		c = memory[ip + 3]
+
+		if opcode == 1:
+			memory[c] = memory[a] + memory[b]
+		elif opcode == 2:
+			memory[c] = memory[a] * memory[b]
+		else:
+			raise ValueError(f"Error invalid opcode : {opcode}")
+
+		ip += 4
+	return memory[0]
+
+for noun in range(100):
+	for verb in range(100):
+		if run(noun, verb) == 19690720:
+			print(100 * noun + verb)
+			raise SystemExit
+```
+- The Javascript version is as follows:
+```
+const fs = require("fs");
+
+const original = fs
+	.readFileSync("input02", "utf-8")
+	.trim()
+	.split(",")
+	.map(Number);
+
+function run(noun, verb) {
+	const memory = [...original];
+
+	memory[1] = noun;
+	memory[2] = verb;
+
+	let ip = 0;
+
+	while (true) {
+		const opcode = memory[ip];
+		if (opcode === 99) break;
+
+		const a = memory[ip + 1];
+		const b = memory[ip + 2];
+		const c = memory[ip + 3];
+
+		if (opcode === 1) {
+			memory[c] = memory[a] + memory[b];
+		}
+
+		else if (opcode === 2) {
+			memory[c] = memory[a] * memory[b];
+		}
+
+		else {
+			throw new Error(`Unknown Opcode: ${opcode}`);
+		}
+
+		ip += 4;
+	}
+
+	return memory[0];
+}
+
+for (let noun = 0; noun < 100; noun++) {
+	for (let verb = 0; verb < 100; verb++) {
+		if (run(noun, verb) === 19690720) {
+			console.log(100 * noun + verb);
+			process.exit(0);
+		}
+	}
+}
+```
+
+# This Concludes Day 02 of The Advent of Code.
