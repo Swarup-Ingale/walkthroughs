@@ -83,4 +83,54 @@ intersections = path1 & path2
 
 print(min(abs(x) + abs(y) for x, y in intersections))
 ```
+- The Javascript version of code is as follows:
+```
+const fs = require("fs");
 
+const [wire1, wire2] = fs
+	.readFileSync("input03", "utf-8")
+	.trim()
+	.split("\n");
+
+function trace(wire) {
+	let x = 0;
+	let y = 0;
+
+	const visited = new Set();
+
+	const dirs = {
+		U: [0, 1],
+		D: [0, -1],
+		L: [-1, 0],
+		R: [1, 0],
+	};
+
+	for (const move of wire.split(",")) {
+		const [dx, dy] = dirs[move[0]];
+		const length = Number(move.slice(1));
+
+		for (let i = 0; i < length; i++) {
+			x += dx;
+			y += dy;
+			visited.add(`${x},${y}`);
+		}
+	}
+
+	return visited;
+}
+
+const path1 = trace(wire1);
+const path2 = trace(wire2);
+
+let answer = Infinity;
+
+for (const point of path1) {
+	if (path2.has(point)) {
+		const [x, y] = point.split(",").map(Number);
+		answer = Math.min(answer, Math.abs(x) + Math.abs(y));
+	}
+}
+
+console.log(answer);
+```
+- This Solves The Part 01 of this challenge.
