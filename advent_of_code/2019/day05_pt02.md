@@ -45,4 +45,170 @@ What is the diagnostic code for system ID 5?
 - The Part 02 of this challenge can be solved as follows:
 - The Python version is as follows:
 ```
-Ill solve this tomorrow :( Now Im done and sleepy ... so if u came to check by thanks for supporting :)
+with open("input05", "r") as f:
+    memory = list(map(int, f.read().strip().split(",")))
+
+INPUT = 5
+
+
+def get(memory, index, mode):
+    return memory[memory[index]] if mode == 0 else memory[index]
+
+
+ip = 0
+
+while True:
+    instruction = memory[ip]
+
+    opcode = instruction % 100
+    mode1 = (instruction // 100) % 10
+    mode2 = (instruction // 1000) % 10
+
+    if opcode == 99:
+        break
+
+    elif opcode == 1:
+        memory[memory[ip + 3]] = (
+            get(memory, ip + 1, mode1)
+            + get(memory, ip + 2, mode2)
+        )
+        ip += 4
+
+    elif opcode == 2:
+        memory[memory[ip + 3]] = (
+            get(memory, ip + 1, mode1)
+            * get(memory, ip + 2, mode2)
+        )
+        ip += 4
+
+    elif opcode == 3:
+        memory[memory[ip + 1]] = INPUT
+        ip += 2
+
+    elif opcode == 4:
+        print(get(memory, ip + 1, mode1))
+        ip += 2
+
+    elif opcode == 5:
+        if get(memory, ip + 1, mode1) != 0:
+            ip = get(memory, ip + 2, mode2)
+        else:
+            ip += 3
+
+    elif opcode == 6:
+        if get(memory, ip + 1, mode1) == 0:
+            ip = get(memory, ip + 2, mode2)
+        else:
+            ip += 3
+
+    elif opcode == 7:
+        memory[memory[ip + 3]] = int(
+            get(memory, ip + 1, mode1)
+            < get(memory, ip + 2, mode2)
+        )
+        ip += 4
+
+    elif opcode == 8:
+        memory[memory[ip + 3]] = int(
+            get(memory, ip + 1, mode1)
+            == get(memory, ip + 2, mode2)
+        )
+        ip += 4
+
+    else:
+        raise ValueError(f"Unknown opcode {opcode}")
+```
+- The Javascript version is as follows:
+```
+const fs = require("fs");
+
+const memory = fs
+    .readFileSync("input05", "utf8")
+    .trim()
+    .split(",")
+    .map(Number);
+
+const INPUT = 5;
+
+function get(memory, index, mode) {
+    return mode === 0
+        ? memory[memory[index]]
+        : memory[index];
+}
+
+let ip = 0;
+
+while (true) {
+    const instruction = memory[ip];
+
+    const opcode = instruction % 100;
+    const mode1 = Math.floor(instruction / 100) % 10;
+    const mode2 = Math.floor(instruction / 1000) % 10;
+
+    switch (opcode) {
+        case 1:
+            memory[memory[ip + 3]] =
+                get(memory, ip + 1, mode1) +
+                get(memory, ip + 2, mode2);
+            ip += 4;
+            break;
+
+        case 2:
+            memory[memory[ip + 3]] =
+                get(memory, ip + 1, mode1) *
+                get(memory, ip + 2, mode2);
+            ip += 4;
+            break;
+
+        case 3:
+            memory[memory[ip + 1]] = INPUT;
+            ip += 2;
+            break;
+
+        case 4:
+            console.log(get(memory, ip + 1, mode1));
+            ip += 2;
+            break;
+
+        case 5:
+            if (get(memory, ip + 1, mode1) !== 0)
+                ip = get(memory, ip + 2, mode2);
+            else
+                ip += 3;
+            break;
+
+        case 6:
+            if (get(memory, ip + 1, mode1) === 0)
+                ip = get(memory, ip + 2, mode2);
+            else
+                ip += 3;
+            break;
+
+        case 7:
+            memory[memory[ip + 3]] =
+                get(memory, ip + 1, mode1) <
+                get(memory, ip + 2, mode2)
+                    ? 1
+                    : 0;
+            ip += 4;
+            break;
+
+        case 8:
+            memory[memory[ip + 3]] =
+                get(memory, ip + 1, mode1) ===
+                get(memory, ip + 2, mode2)
+                    ? 1
+                    : 0;
+            ip += 4;
+            break;
+
+        case 99:
+            process.exit(0);
+
+        default:
+            throw new Error(`Unknown opcode ${opcode}`);
+    }
+}
+```
+
+# This Concludes Day 05 of The Advent of Code.
