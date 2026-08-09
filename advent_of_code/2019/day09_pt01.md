@@ -43,4 +43,122 @@ Once your Intcode computer is fully functional, the BOOST program should report 
 - The Part 01 of this challenge can be solved as follows:
 - The Python version is as follows:
 ```
-Lets get back at it tommorow ... *__*
+from collections import defaultdict
+
+with open("input09", "r") as f:
+    program = list(map(int, f.read().strip().split(",")))
+
+memory = defaultdict(int)
+
+for i, value in enumerate(program):
+    memory[i] = value
+
+ip = 0
+relative_base = 0
+inputs = [1]
+
+
+def read(mode, index):
+    if mode == 0:
+        return memory[memory[index]]
+
+    elif mode == 1:
+        return memory[index]
+
+    elif mode == 2:
+        return memory[relative_base + memory[index]]
+
+    else:
+        raise ValueError(f"Invalid parameter mode: {mode}")
+
+
+def write_addr(mode, index):
+    if mode == 0:
+        return memory[index]
+
+    elif mode == 2:
+        return relative_base + memory[index]
+
+    else:
+        raise ValueError(
+            f"Invalid write parameter mode: {mode}"
+        )
+
+
+while True:
+    instruction = memory[ip]
+
+    opcode = instruction % 100
+
+    mode1 = (instruction // 100) % 10
+    mode2 = (instruction // 1000) % 10
+    mode3 = (instruction // 10000) % 10
+
+    if opcode == 99:
+        break
+
+    elif opcode == 1:
+        memory[write_addr(mode3, ip + 3)] = (
+            read(mode1, ip + 1)
+            + read(mode2, ip + 2)
+        )
+
+        ip += 4
+
+    elif opcode == 2:
+        memory[write_addr(mode3, ip + 3)] = (
+            read(mode1, ip + 1)
+            * read(mode2, ip + 2)
+        )
+
+        ip += 4
+
+    elif opcode == 3:
+        memory[write_addr(mode1, ip + 1)] = inputs.pop(0)
+
+        ip += 2
+
+    elif opcode == 4:
+        print(read(mode1, ip + 1))
+
+        ip += 2
+
+    elif opcode == 5:
+        if read(mode1, ip + 1) != 0:
+            ip = read(mode2, ip + 2)
+        else:
+            ip += 3
+
+    elif opcode == 6:
+        if read(mode1, ip + 1) == 0:
+            ip = read(mode2, ip + 2)
+        else:
+            ip += 3
+
+    elif opcode == 7:
+        memory[write_addr(mode3, ip + 3)] = int(
+            read(mode1, ip + 1)
+            < read(mode2, ip + 2)
+        )
+
+        ip += 4
+
+    elif opcode == 8:
+        memory[write_addr(mode3, ip + 3)] = int(
+            read(mode1, ip + 1)
+            == read(mode2, ip + 2)
+        )
+
+        ip += 4
+
+    elif opcode == 9:
+        relative_base += read(mode1, ip + 1)
+
+        ip += 2
+
+    else:
+        raise ValueError(f"Unknown opcode: {opcode}")
+```
+- The Javascript version is as follows:
+```
+
