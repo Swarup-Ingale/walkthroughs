@@ -109,3 +109,113 @@ Find the best location for a new monitoring station. How many other asteroids ca
 - The Part 01 of this challenge can be solved as follows:
 - The Javascript version is as follows:
 ```
+const fs = require("fs");
+
+const grid = fs
+	.readFileSync("input10", "utf-8")
+	.trim()
+	.split("\n");
+
+const asteroids = [];
+
+for (let y = 0; y < grid.length; y++) {
+	for (let x = 0; x < grid[y].length; x++) {
+		if (grid[y][x] === "#") {
+			asteroids.push([x, y]);
+		}
+	}
+}
+
+function gcd(a, b) {
+	while (b !== 0) {
+		const temp = a % b;
+		a = b;
+		b = temp;
+	}
+	return a;
+}
+
+function visibleFrom(x1, y1) {
+	const directions = new Set();
+
+	for (const [x2, y2] of asteroids) {
+		if (x1 === x2 && y1 === y2) {
+			continue;
+		}
+
+		let dx = x2 - x1;
+		let dy = y2 - y1;
+
+		const divisor = gcd(Math.abs(dx), Math.abs(dy));
+
+		dx /= divisor;
+		dy /= divisor;
+
+		directions.add(`${dx}, ${dy}`);
+	}
+
+	return directions.size;
+}
+
+let best = null;
+let bestCount = 0;
+
+for (const [x, y] of asteroids) {
+	const count = visibleFrom(x, y);
+
+	if (count > bestCount) {
+		bestCount = count;
+		best = [x, y];
+	}
+}
+
+console.log(`Best Location is: ${best}`);
+console.log(`Visible Asteroids are: ${bestCount}`);
+```
+- The Python version is as follows:
+```
+from math import gcd
+
+with open("input10", "r") as f:
+	grid = f.read().strip().splitlines()
+
+asteroids = []
+
+for y, row in enumerate(grid):
+	for x, value in enumerate(row):
+		if value == "#":
+			asteroids.append((x, y))
+
+def visible_from(x1, y1):
+	directions = set()
+
+	for x2, y2 in asteroids:
+		if (x1, y1) == (x2, y2):
+			continue
+
+		dx = x2 - x1
+		dy = y2 - y1
+
+		divisor = gcd(abs(dx), abs(dy))
+
+		dx //= divisor
+		dy //= divisor
+
+		directions.add((dx, dy))
+
+	return len(directions)
+
+best = None
+best_count = 0
+
+for x, y in asteroids:
+	count = visible_from(x, y)
+
+	if count > best_count:
+		best_count = count
+		best = (x, y)
+
+print("Best Location:", best)
+print("Visible Asteroids:", best_count)
+```
+- This Solves the part 01 of this challenge.
