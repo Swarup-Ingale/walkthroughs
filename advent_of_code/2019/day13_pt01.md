@@ -22,3 +22,5 @@ Start the game. How many block tiles are on the screen when the game exits?
 - The Part 01 of this challenge can be solved as follows:
 - The Python Version is as follows:
 ```
+aslmklans
+```
