@@ -99,3 +99,126 @@ Given the list of reactions in your puzzle input, what is the minimum amount of 
 
 # Method of Solve
 - The Part 01 of this challenge can be solved as follows:
+- The Python version is as follows:
+```
+import math
+
+with open("input14", "r") as f:
+	reactions_input = f.read().strip().splitlines()
+
+reactions = {}
+
+for line in reactions_input:
+	left, right = line.split(" => ")
+	inputs = []
+
+	for part in left.split(", "):
+		amount, chemical = part.split()
+		inputs.append((int(amount), chemical))
+
+	output_amount, output_chemical = right.split()
+
+	reactions[output_chemical] = (int(output_amount), inputs)
+
+leftovers = {}
+
+def get_ore(chemical, amount):
+	if chemical == "ORE":
+		return amount
+
+	available = leftovers.get(chemical, 0)
+
+	if available >= amount:
+		leftovers[chemical] = available - amount
+		return 0
+
+	if available > 0:
+		amount -= available
+		leftovers[chemical] = 0
+
+	output_amount, ingredients = reactions[chemical]
+
+	batches = math.ceil(amount / output_amount)
+
+	produced = batches * output_amount
+
+	extra = produced - amount
+
+	leftovers[chemical] = leftovers.get(chemical, 0) + extra
+
+	ore = 0
+
+	for ingredient_amount, ingredient in ingredients:
+		ore += get_ore(ingredient, ingredient_amount * batches)
+
+	return ore
+
+ore_required = get_ore("FUEL", 1)
+
+print(f"ORE Required: {ore_required}")
+```
+- The Javascript version is as follows:
+```
+const fs = require("fs");
+
+const lines = fs
+	.readFileSync("input14", "utf-8")
+	.trim()
+	.split("\n");
+
+const reactions = new Map();
+
+for (const line of lines) {
+	const [left, right] = line.split(" => ");
+	const inputs = [];
+
+	for (const part of left.split(", ")) {
+		const [amount, chemical] = part.split(" ");
+
+		inputs.push({ amount: Number(amount), chemical: chemical });
+	}
+
+	const [outputAmount, outputChemical] = right.split(" ");
+
+	reactions.set(outputChemical, { amount: Number(outputAmount), inputs: inputs });
+}
+
+const leftovers = new Map();
+
+function getOre(chemical, amount) {
+	if (chemical === "ORE") {
+		return amount;
+	}
+
+	const available = leftovers.get(chemical) ?? 0;
+
+	if (available >= amount) {
+		leftovers.set(chemical, available - amount);
+		return 0;
+	}
+
+	if (available > 0) {
+		amount -= available;
+		leftovers.set(chemical, 0);
+	}
+
+	const reaction = reactions.get(chemical);
+	const batches = Math.ceil(amount / reaction.amount);
+	const produced = batches * reaction.amount;
+	const extra = produced - amount;
+
+	leftovers.set(chemical, (leftovers.get(chemical) ?? 0) + extra);
+
+	let ore = 0;
+
+	for (const ingredient of reaction.inputs) {
+		ore += getOre(ingredient.chemical, ingredient.amount * batches);
+	}
+
+	return ore;
+}
+
+const oreRequired = getOre("FUEL", 1);
+console.log(`ORE Required: ${oreRequired}`);
+```
+- This Solves Part 01 of this challenge.
