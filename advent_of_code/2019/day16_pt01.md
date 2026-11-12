@@ -1,5 +1,5 @@
 # URL
-https://adventofcode.com/2019/day/16#part2
+https://adventofcode.com/2019/day/16
 
 # Description
 --- Day 16: Flawed Frequency Transmission ---
