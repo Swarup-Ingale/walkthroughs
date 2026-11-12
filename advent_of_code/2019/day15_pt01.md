@@ -91,11 +91,20 @@ What is the fewest number of movement commands required to move the repair droid
 ```python
 from collections import defaultdict, deque
 
+
 with open("input15", "r") as f:
-	program = list(map(int, f.read().strip().split(",")))
+	program = list(
+		map(
+			int,
+			f.read().strip().split(",")
+		)
+	)
+
 
 class Intcode:
+
 	def __init__(self, program):
+
 		self.memory = defaultdict(int)
 
 		for i, value in enumerate(program):
@@ -105,7 +114,9 @@ class Intcode:
 		self.relative_base = 0
 		self.halted = False
 
+
 	def copy(self):
+
 		computer = Intcode([])
 
 		computer.memory = self.memory.copy()
@@ -115,103 +126,245 @@ class Intcode:
 
 		return computer
 
+
 	def read(self, address):
 		return self.memory[address]
+
 
 	def write(self, address, value):
 		self.memory[address] = value
 
+
 	def parameter(self, mode, index):
 
 		if mode == 0:
-			return self.read(self.read(index))
+			return self.read(
+				self.read(index)
+			)
 
 		elif mode == 1:
 			return self.read(index)
 
 		elif mode == 2:
-			return self.read(self.relative_base + self.read(index))
+			return self.read(
+				self.relative_base + self.read(index)
+			)
 
-		raise ValueError(f"Invalid parameter mode: {mode}")
+		raise ValueError(
+			f"Invalid parameter mode: {mode}"
+		)
+
 
 	def write_address(self, mode, index):
+
 		if mode == 0:
 			return self.read(index)
 
 		elif mode == 2:
 			return self.relative_base + self.read(index)
 
-		raise ValueError(f"Invalid write mode: {mode}")
+		raise ValueError(
+			f"Invalid write mode: {mode}"
+		)
+
 
 	def run(self, input_value):
+
 		while True:
+
 			instruction = self.read(self.ip)
+
 			opcode = instruction % 100
 
 			mode1 = (instruction // 100) % 10
 			mode2 = (instruction // 1000) % 10
 			mode3 = (instruction // 10000) % 10
 
+
 			if opcode == 99:
+
 				self.halted = True
+
 				return None
 
+
 			elif opcode == 1:
-				a = self.parameter(mode1, self.ip + 1)
-				b = self.parameter(mode2, self.ip + 2)
-				address = self.write_address(mode3, self.ip + 3)
-				self.write(address, a + b)
+
+				a = self.parameter(
+					mode1,
+					self.ip + 1
+				)
+
+				b = self.parameter(
+					mode2,
+					self.ip + 2
+				)
+
+				address = self.write_address(
+					mode3,
+					self.ip + 3
+				)
+
+				self.write(
+					address,
+					a + b
+				)
+
 				self.ip += 4
+
 
 			elif opcode == 2:
-				a = self.parameter(mode1, self.ip + 1)
-				b = self.parameter(mode2, self.ip + 2)
-				address = self.write_address(mode3,self.ip + 3)
-				self.write(address, a * b)
+
+				a = self.parameter(
+					mode1,
+					self.ip + 1
+				)
+
+				b = self.parameter(
+					mode2,
+					self.ip + 2
+				)
+
+				address = self.write_address(
+					mode3,
+					self.ip + 3
+				)
+
+				self.write(
+					address,
+					a * b
+				)
+
 				self.ip += 4
+
 
 			elif opcode == 3:
-				address = self.write_address(mode1, self.ip + 1)
-				self.write(address, input_value)
+
+				address = self.write_address(
+					mode1,
+					self.ip + 1
+				)
+
+				self.write(
+					address,
+					input_value
+				)
+
 				self.ip += 2
+
 
 			elif opcode == 4:
-				output = self.parameter(mode1, self.ip + 1)
+
+				output = self.parameter(
+					mode1,
+					self.ip + 1
+				)
+
 				self.ip += 2
+
 				return output
 
+
 			elif opcode == 5:
-				if self.parameter(mode1, self.ip + 1) != 0:
-					self.ip = self.parameter(mode2,self.ip + 2)
+
+				if self.parameter(
+					mode1,
+					self.ip + 1
+				) != 0:
+
+					self.ip = self.parameter(
+						mode2,
+						self.ip + 2
+					)
+
 				else:
+
 					self.ip += 3
+
 
 			elif opcode == 6:
-				if self.parameter(mode1, self.ip + 1) == 0:
-					self.ip = self.parameter(mode2, self.ip + 2)
+
+				if self.parameter(
+					mode1,
+					self.ip + 1
+				) == 0:
+
+					self.ip = self.parameter(
+						mode2,
+						self.ip + 2
+					)
+
 				else:
+
 					self.ip += 3
 
+
 			elif opcode == 7:
-				a = self.parameter(mode1, self.ip + 1)
-				b = self.parameter(mode2, self.ip + 2)
-				address = self.write_address(mode3, self.ip + 3)
-				self.write(address, 1 if a < b else 0)
+
+				a = self.parameter(
+					mode1,
+					self.ip + 1
+				)
+
+				b = self.parameter(
+					mode2,
+					self.ip + 2
+				)
+
+				address = self.write_address(
+					mode3,
+					self.ip + 3
+				)
+
+				self.write(
+					address,
+					1 if a < b else 0
+				)
+
 				self.ip += 4
+
 
 			elif opcode == 8:
-				a = self.parameter(mode1, self.ip + 1)
-				b = self.parameter(mode2, self.ip + 2)
-				address = self.write_address(mode3, self.ip + 3)
-				self.write(address, 1 if a == b else 0)
+
+				a = self.parameter(
+					mode1,
+					self.ip + 1
+				)
+
+				b = self.parameter(
+					mode2,
+					self.ip + 2
+				)
+
+				address = self.write_address(
+					mode3,
+					self.ip + 3
+				)
+
+				self.write(
+					address,
+					1 if a == b else 0
+				)
+
 				self.ip += 4
 
+
 			elif opcode == 9:
-				self.relative_base += self.parameter(mode1, self.ip + 1)
+
+				self.relative_base += self.parameter(
+					mode1,
+					self.ip + 1
+				)
+
 				self.ip += 2
 
+
 			else:
-				raise ValueError(f"Unknown opcode {opcode} at position {self.ip}")
+
+				raise ValueError(
+					f"Unknown opcode {opcode} at position {self.ip}"
+				)
+
 
 directions = {
 	1: (0, -1),
@@ -220,36 +373,184 @@ directions = {
 	4: (1, 0)
 }
 
+
 computer = Intcode(program)
 
+
 queue = deque()
-queue.append((0, 0, computer, 0))
+
+queue.append(
+	(
+		0,
+		0,
+		computer
+	)
+)
+
 
 visited = set()
-visited.add((0, 0))
+
+visited.add(
+	(0, 0)
+)
+
+
+area = {
+	(0, 0): 1
+}
+
+
+oxygen = None
+
 
 while queue:
-	x, y, computer, distance = queue.popleft()
+
+	x, y, computer = queue.popleft()
+
+
 	for command, (dx, dy) in directions.items():
+
 		new_x = x + dx
 		new_y = y + dy
+
 
 		if (new_x, new_y) in visited:
 			continue
 
+
 		next_computer = computer.copy()
-		status = next_computer.run(command)
+
+
+		status = next_computer.run(
+			command
+		)
+
 
 		if status == 0:
+
+			area[
+				(new_x, new_y)
+			] = 0
+
 			continue
 
+
 		elif status == 1:
-			visited.add((new_x, new_y))
-			queue.append((new_x, new_y, next_computer, distance + 1))
+
+			visited.add(
+				(new_x, new_y)
+			)
+
+			area[
+				(new_x, new_y)
+			] = 1
+
+			queue.append(
+				(
+					new_x,
+					new_y,
+					next_computer
+				)
+			)
+
 
 		elif status == 2:
-			print(f"Shortest path: {distance + 1}")
-			exit()
+
+			visited.add(
+				(new_x, new_y)
+			)
+
+			area[
+				(new_x, new_y)
+			] = 2
+
+			oxygen = (
+				new_x,
+				new_y
+			)
+
+			queue.append(
+				(
+					new_x,
+					new_y,
+					next_computer
+				)
+			)
+
+
+if oxygen is None:
+
+	raise RuntimeError(
+		"Oxygen system was not found."
+	)
+
+
+queue = deque()
+
+queue.append(
+	(
+		oxygen[0],
+		oxygen[1],
+		0
+	)
+)
+
+
+visited = set()
+
+visited.add(
+	oxygen
+)
+
+
+max_distance = 0
+
+
+while queue:
+
+	x, y, distance = queue.popleft()
+
+
+	max_distance = max(
+		max_distance,
+		distance
+	)
+
+
+	for dx, dy in directions.values():
+
+		new_x = x + dx
+		new_y = y + dy
+
+
+		if (new_x, new_y) in visited:
+			continue
+
+
+		if area.get(
+			(new_x, new_y),
+			0
+		) == 0:
+
+			continue
+
+
+		visited.add(
+			(new_x, new_y)
+		)
+
+		queue.append(
+			(
+				new_x,
+				new_y,
+				distance + 1
+			)
+		)
+
+
+print(
+	f"Oxygen fill time: {max_distance}"
+)
 ```
 - The JavaScript version is as follows:
 ```javascript
@@ -582,6 +883,11 @@ const directions = new Map([
 ]);
 
 
+function key(x, y) {
+	return `${x},${y}`;
+}
+
+
 const computer = new Intcode(
 	program
 );
@@ -589,12 +895,10 @@ const computer = new Intcode(
 
 const queue = [];
 
-
 queue.push({
 	x: 0,
 	y: 0,
-	computer: computer,
-	distance: 0
+	computer: computer
 });
 
 
@@ -604,8 +908,19 @@ let queueIndex = 0;
 const visited = new Set();
 
 visited.add(
-	"0,0"
+	key(0, 0)
 );
+
+
+const area = new Map();
+
+area.set(
+	key(0, 0),
+	1
+);
+
+
+let oxygen = null;
 
 
 while (queueIndex < queue.length) {
@@ -617,7 +932,6 @@ while (queueIndex < queue.length) {
 	const x = current.x;
 	const y = current.y;
 	const currentComputer = current.computer;
-	const distance = current.distance;
 
 
 	for (const [command, [dx, dy]] of directions) {
@@ -625,10 +939,13 @@ while (queueIndex < queue.length) {
 		const newX = x + dx;
 		const newY = y + dy;
 
-		const key = `${newX},${newY}`;
+		const newKey = key(
+			newX,
+			newY
+		);
 
 
-		if (visited.has(key)) {
+		if (visited.has(newKey)) {
 			continue;
 		}
 
@@ -643,32 +960,144 @@ while (queueIndex < queue.length) {
 
 		if (status === 0) {
 
+			area.set(
+				newKey,
+				0
+			);
+
 			continue;
 		}
 
 
 		else if (status === 1) {
 
-			visited.add(key);
+			visited.add(newKey);
+
+			area.set(
+				newKey,
+				1
+			);
 
 			queue.push({
 				x: newX,
 				y: newY,
-				computer: nextComputer,
-				distance: distance + 1
+				computer: nextComputer
 			});
 		}
 
 
 		else if (status === 2) {
 
-			console.log(
-				`Shortest path: ${distance + 1}`
+			visited.add(newKey);
+
+			area.set(
+				newKey,
+				2
 			);
 
-			process.exit(0);
+			oxygen = {
+				x: newX,
+				y: newY
+			};
+
+			queue.push({
+				x: newX,
+				y: newY,
+				computer: nextComputer
+			});
 		}
 	}
 }
+
+
+if (oxygen === null) {
+
+	throw new Error(
+		"Oxygen system was not found."
+	);
+}
+
+
+const oxygenQueue = [];
+
+oxygenQueue.push({
+	x: oxygen.x,
+	y: oxygen.y,
+	distance: 0
+});
+
+
+let oxygenQueueIndex = 0;
+
+
+const oxygenVisited = new Set();
+
+oxygenVisited.add(
+	key(
+		oxygen.x,
+		oxygen.y
+	)
+);
+
+
+let maxDistance = 0;
+
+
+while (
+	oxygenQueueIndex < oxygenQueue.length
+) {
+
+	const current = oxygenQueue[
+		oxygenQueueIndex++
+	];
+
+	const x = current.x;
+	const y = current.y;
+	const distance = current.distance;
+
+
+	maxDistance = Math.max(
+		maxDistance,
+		distance
+	);
+
+
+	for (const [dx, dy] of directions.values()) {
+
+		const newX = x + dx;
+		const newY = y + dy;
+
+		const newKey = key(
+			newX,
+			newY
+		);
+
+
+		if (oxygenVisited.has(newKey)) {
+			continue;
+		}
+
+
+		if (
+			(area.get(newKey) ?? 0) === 0
+		) {
+			continue;
+		}
+
+
+		oxygenVisited.add(newKey);
+
+		oxygenQueue.push({
+			x: newX,
+			y: newY,
+			distance: distance + 1
+		});
+	}
+}
+
+
+console.log(
+	`Oxygen fill time: ${maxDistance}`
+);
 ```
 - This Solves The Part 01 of this challenge.
